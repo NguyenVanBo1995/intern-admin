@@ -12,7 +12,7 @@ class CustomerController extends Controller
     {
         $name = $request->input('name');
         $email = $request->input('email');
-        $status = 0;
+        $status = $request->input('status');
         $number = $request->input('number');
         $birthday  = $request->input('date');
         if (!empty($name) && !empty($email) && !empty($number)) {
