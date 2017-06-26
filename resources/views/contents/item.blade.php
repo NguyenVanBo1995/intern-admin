@@ -229,7 +229,7 @@
                             <input name="price" class="form-contrl" placeholder="Price" required/>
                         </div>
                         <div class="col-xs-12">
-                            <label class="col-xs-2">Category</label>
+                            <label class="col-xs-2">Item</label>
                                 <select name="category">
                                     @if(! empty($categories))
                                         @foreach($categories as $category)
@@ -275,6 +275,7 @@
                   $('#add').modal('show');
             @endif
             $('.btn-remove').click(function () {
+                var id = $(this).attr('item_id');
                 swal({
                             title: "Are you sure?",
                             text: "You will not be able to recover this item!",
@@ -288,7 +289,6 @@
                         },
                         function (isConfirm) {
                             if (isConfirm) {
-                                var id = $('.btn-remove').attr('item_id');
                                 removeItem(id);
                             } else {
                                 swal("Cancelled", "item is safe :)", "error");

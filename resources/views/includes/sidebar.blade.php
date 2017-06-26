@@ -26,17 +26,17 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
             <li class="menu active" file = "category" >
-                <a href="{{route('home')}}">
+                <a href="{{route('admin')}}">
                     <i class="fa fa-list"></i> <span>Categorys</span>
                 </a>
             </li>
             <li class="menu">
-                    <a href="{{route('item')}}">
+                    <a href="{{route('admin/item')}}">
                     <i class="fa fa-list-ul"></i> <span>Items</span>
                 </a>
             </li>
             <li class="menu">
-                <a href="{{route('reservation')}}">
+                <a href="{{route('admin/reservation')}}">
                     <i class="fa fa-users"></i>
                     <span>Customer</span>
                     </span>

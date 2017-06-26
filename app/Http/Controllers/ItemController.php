@@ -28,7 +28,7 @@ class ItemController extends Controller
                 echo "name";
             }
         }
-        return redirect('/item');
+        return redirect('admin/item');
     }
 
     public function remove(Request $request)

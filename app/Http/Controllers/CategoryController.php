@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Model\Category;
 use Validator;
@@ -22,7 +20,7 @@ class CategoryController extends Controller
             'description' => 'required|min:10'
         ], $messages);
         if ($validator->fails()) {
-           return back()->withErrors($validator)
+            return back()->withErrors($validator)
                 ->withInput();
         }
         if ($name != null) {
@@ -31,9 +29,8 @@ class CategoryController extends Controller
             $cate->description = $description;
             $cate->save();
         }
-        return redirect('home');
+        return redirect('admin');
     }
-
     public function get($id)
     {
         if (!empty($id) && is_numeric($id)) {
@@ -41,7 +38,6 @@ class CategoryController extends Controller
             dd($category);
         }
     }
-
     public function update($id, $name, $description)
     {
         if (!empty($id)) {
@@ -53,7 +49,6 @@ class CategoryController extends Controller
         }
         echo "success";
     }
-
     public function remove(Request $request)
     {
         $cate_id = $request->input('id');
@@ -70,7 +65,6 @@ class CategoryController extends Controller
             die();
         }
     }
-
     public function edit(Request $request){
         $name = $request->input('name');
         $description = $request->input('description');

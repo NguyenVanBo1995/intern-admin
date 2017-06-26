@@ -8,12 +8,13 @@ use Validator;
 
 class CustomerController extends Controller
 {
-    public function add(Request $request)
+    public function create(Request $request)
     {
         $name = $request->input('name');
         $email = $request->input('email');
-        $status = $request->input('status');
+        $status = 0;
         $number = $request->input('number');
+        $birthday  = $request->input('date');
         if (!empty($name) && !empty($email) && !empty($number)) {
             $rules = array(
                 'name' => 'required|max:255',
@@ -28,17 +29,18 @@ class CustomerController extends Controller
             );
             $validator = Validator::make($request->all(), $rules, $message);
             if ($validator->fails()) {
-                dd($validator);
                 return redirect('reservation')->withErrors($validator)->withInput();
             }
+
             $customer = new Customer();
             $customer->name = $name;
             $customer->email = $email;
             $customer->status = $status;
+            $customer->birthday = $birthday;
             $customer->number = $number;
             $customer->save();
         }
-        return redirect('reservation');
+        return back()->with('bookStatus', 'success');
     }
 
     public function edit(Request $request)
