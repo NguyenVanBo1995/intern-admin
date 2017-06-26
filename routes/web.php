@@ -13,6 +13,9 @@
 //Guest
 
 Route::get('/', 'Controller@index');
+Route::get('/home', function (){
+    return redirect('/admin');
+});
 Auth::routes();
 
 //Category
