@@ -14,19 +14,17 @@ class ItemController extends Controller
         $description = $request->input('description');
         $price = $request->input('price');
         $categoryName = $request->input('category');
-        if (!empty($categoryName)) {
-            $category = Category::where('name', $categoryName)->get()[0];
-            if (!empty($category)) {
-            }
-            if ($name != null) {
-                $item = new Item();
-                $item->name = $name;
-                $item->description = $description;
-                $item->price = $price;
-                $item->category_id = $category->id;
-                $item->save();
-                echo "name";
-            }
+        $category = Category::where('name', $categoryName)->get()[0];
+        if (!empty($category)) {
+        }
+        if ($name != null) {
+            $item = new Item();
+            $item->name = $name;
+            $item->description = $description;
+            $item->price = $price;
+            $item->category_id = $category->id;
+            $item->save();
+            echo "name";
         }
         return redirect('admin/item');
     }

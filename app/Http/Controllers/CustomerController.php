@@ -14,32 +14,33 @@ class CustomerController extends Controller
         $email = $request->input('email');
         $status = $request->input('status');
         $number = $request->input('number');
-        $birthday  = $request->input('date');
-        if (!empty($name) && !empty($email) && !empty($number)) {
-            $rules = array(
-                'name' => 'required|max:255',
-                'email' => 'required|email',
-                'status' => 'required',
-                'number' => 'required|numeric'
-            );
-            $message = array(
-                'required' => 'The :attribute is required',
-                'email' => 'The :attribute is email',
-                'number' => 'The :attribute is numeric',
-            );
-            $validator = Validator::make($request->all(), $rules, $message);
-            if ($validator->fails()) {
-                return redirect('reservation')->withErrors($validator)->withInput();
-            }
-
-            $customer = new Customer();
-            $customer->name = $name;
-            $customer->email = $email;
-            $customer->status = $status;
-            $customer->birthday = $birthday;
-            $customer->number = $number;
-            $customer->save();
+        $birthday = $request->input('date');
+        $rules = array(
+            'name' => 'required|max:255',
+            'email' => 'required|email',
+            'number' => 'required|numeric'
+        );
+        $message = array(
+            'required' => 'The :attribute is required',
+            'email' => 'The :attribute is email',
+            'number' => 'The :attribute is numeric',
+        );
+        $validator = Validator::make($request->all(), $rules, $message);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
         }
+
+        $customer = new Customer();
+        $customer->name = $name;
+        $customer->email = $email;
+        if (!empty($status)) {
+            $customer->status = $status;
+        } else {
+            $customer->status = 0;
+        }
+        $customer->birthday = $birthday;
+        $customer->number = $number;
+        $customer->save();
         return back()->with('bookStatus', 'success');
     }
 
@@ -80,7 +81,8 @@ class CustomerController extends Controller
         }
     }
 
-    public function reserver(Request $request){
+    public function reserver(Request $request)
+    {
         $id = $request->input('id');
         $customer = Customer::find($id);
         if (!empty($id)) {
@@ -88,10 +90,12 @@ class CustomerController extends Controller
             $customer->save();
             echo json_encode(array(
                 'status' => 'Success'
-            ));die();
+            ));
+            die();
         }
         echo json_encode(array(
             'status' => 'Fail'
-        ));die();
+        ));
+        die();
     }
 }

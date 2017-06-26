@@ -288,7 +288,7 @@
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <label for="party">Party Number</label>
-                            <select name="party-number" class="party form-control">
+                            <select name="number" class="party form-control">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                             </select>
