@@ -71,7 +71,7 @@
                 <!-- /.box -->
             </div>
             <div class="col-xs-12">
-                <button class="btn btn-info add-item" style="font-weight: bold" data-toggle="modal"
+                <button class="btn btn-info add-item" title="Add item" style="font-weight: bold" data-toggle="modal"
                         data-target="#add"><i class="fa fa-plus-circle"
                                               style="font-size: 20px; margin-right: 5px"></i>Add
                     item
