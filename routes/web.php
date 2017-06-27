@@ -39,4 +39,12 @@ Route::post('editCustomer', 'CustomerController@edit');
 Route::post('removeCustomer', 'CustomerController@remove');
 Route::post('reserverCustomer', 'CustomerController@reserver');
 
+//Book
+Route::get('admin/book','BookController@bookList')->name('adminBook');
+Route::get('admin/book/new','BookController@addBook')->name('addBook');
+Route::post('admin/book/edit','BookController@editBook')->name('editBook');
+Route::post('admin/book/remove', 'BookController@removeBook')->name('removeBook');
+
+
+
 

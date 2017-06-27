@@ -5,6 +5,10 @@ use App\Model\Category;
 use Validator;
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function add(Request $request)
     {
         $name =  $request->input('name');

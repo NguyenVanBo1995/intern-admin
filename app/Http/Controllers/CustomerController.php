@@ -2,23 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Book;
 use App\Model\Customer;
 use Illuminate\Http\Request;
 use Validator;
 
 class CustomerController extends Controller
 {
+    public function __construct()
+    {
+//        $this->middleware('auth');
+    }
     public function create(Request $request)
     {
         $name = $request->input('name');
         $email = $request->input('email');
         $status = $request->input('status');
         $number = $request->input('number');
-        $birthday = $request->input('date');
+        $date = $request->input('date');
+        $current_date = date("Y-m-d");
         $rules = array(
             'name' => 'required|max:255',
             'email' => 'required|email',
-            'number' => 'required|numeric'
+            'number' => 'required|numeric',
+            'date' => 'required|after:'.$current_date,
         );
         $message = array(
             'required' => 'The :attribute is required',
@@ -38,10 +45,15 @@ class CustomerController extends Controller
         } else {
             $customer->status = 0;
         }
-        $customer->birthday = $birthday;
         $customer->number = $number;
         $customer->save();
-        return back()->with('bookStatus', 'success');
+        $book = new Book();
+        $book->customer_id = $customer->id;
+        $book->number = $number;
+        $book->date  = $date;
+        $book->save();
+
+        return redirect()->route('adminBook')->with('bookStatus', 'success');
     }
 
     public function edit(Request $request)

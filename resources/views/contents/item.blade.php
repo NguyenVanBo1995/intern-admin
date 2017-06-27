@@ -39,8 +39,8 @@
                                         <td><?php echo $item->category->name?></td>
                                         <td style="width: 200px;">
                                             <span class=" action bg-yellow preview" data-toggle="modal"
-                                                  data-target="#preview"
-                                                  style="padding: 8px; margin: 5px; border-radius: 10px"
+                                                  data-target="#preview" title="preview"
+                                                  style="padding: 8px; margin: 5px; border-radius: 10px; cursor:pointer"
                                                   itemName="<?php echo $item->name;?>"
                                                   itemDescription="<?php echo $item->description;?>"
                                                   itemDate="<?php echo $item->created_at;?>"
@@ -48,14 +48,15 @@
                                                   itemCategory="<?php echo $item->category->name;?>"
                                             ><i
                                                         class="fa fa-eye fa-lg"></i></span>
-                                            <span class="action bg-blue edit" data-toggle="modal"
+                                            <span class="action bg-blue edit" data-toggle="modal" title="edit"
                                                   data-target="#edit" item_id="<?php echo $item->id;?>"
                                                   item_name="{{$item->name}}" item_price = "{{$item->price}}"
+                                                  category_name = "{{$item->category->name}}"
                                                   item_description="{{$item->description}}"
-                                                  style="padding: 8px; margin: 5px; border-radius: 10px"><i
+                                                  style="padding: 8px; margin: 5px; border-radius: 10px; cursor:pointer "><i
                                                         class="fa fa-pencil-square-o fa-lg"></i></span>
-                                            <span class="action  bg-red btn-remove" item_id="<?php echo $item->id;?>"
-                                                  style="padding: 8px; margin: 5px; border-radius: 10px"><i
+                                            <span class="action  bg-red btn-remove" title="delete" item_id="<?php echo $item->id;?>"
+                                                  style="padding: 8px; margin: 5px; border-radius: 10px; cursor:pointer"><i
                                                         class="fa fa-trash fa-lg"></i></span>
                                         </td>
                                     </tr>
@@ -105,7 +106,7 @@
                         <hr/>
                     </div>
                     <div class="col-xs-12">
-                        <label>Giá</label>
+                        <label>Price</label>
                         <div class="itemPrice"></div>
                         <hr/>
                     </div>
@@ -181,7 +182,7 @@
                             </div>
                         @endif
                         <div class="col-xs-12 form-group" style="margin: 15px 0px ">
-                            <label>Price</label>
+                            <label>Category</label>
                             <div class="col-xs-12">
                                 <select name="category">
                                     @if(! empty($categories))
@@ -229,7 +230,7 @@
                             <input name="price" class="form-contrl" placeholder="Price" required/>
                         </div>
                         <div class="col-xs-12">
-                            <label class="col-xs-2">Item</label>
+                            <label class="col-xs-2">Category</label>
                                 <select name="category">
                                     @if(! empty($categories))
                                         @foreach($categories as $category)
@@ -314,11 +315,14 @@
                 var name = $(this).attr('item_name');
                 var description = $(this).attr('item_description');
                 var price = $(this).attr('item_price');
+                var category = $(this).attr('category_name');
+                console.log(category);
 
                 $('.form-edit').find('input[name=item-id]').attr('value', itemId);
                 $('.form-edit').find('input[name=name]').attr('value', name);
                 $('.form-edit').find('textarea[name=description]').val(description);
                 $('.form-edit').find('input[name=price]').val(price);
+                $('.form-edit').find('select[name=category]').val(category);
             });
         });
 

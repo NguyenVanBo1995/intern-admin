@@ -30,15 +30,22 @@
                     <i class="fa fa-list"></i> <span>Categorys</span>
                 </a>
             </li>
-            <li class="menu">
+            <li class="item">
                     <a href="{{route('admin/item')}}">
                     <i class="fa fa-list-ul"></i> <span>Items</span>
                 </a>
             </li>
-            <li class="menu">
+            <li class="reservation">
                 <a href="{{route('admin/reservation')}}">
                     <i class="fa fa-users"></i>
                     <span>Customer</span>
+                    </span>
+                </a>
+            </li>
+            <li class="book">
+                <a href="{{route('adminBook')}}">
+                    <i class="fa fa-bookmark"></i>
+                    <span>BookTable</span>
                     </span>
                 </a>
             </li>
@@ -54,3 +61,18 @@
         color: #fff;
     }
 </style>
+<script>
+    var pathArray = window.location.pathname.split( '/' );
+    var segment = pathArray[pathArray.length-1];
+    var sidebarMenu = document.getElementsByClassName('sidebar-menu');
+    document.querySelector('.sidebar-menu .active').classList.remove('active');
+    var query = ".sidebar-menu ."+ segment;
+    element =  document.querySelector(query);
+    if(element){
+        element.classList.add('active');
+    }else{
+        document.querySelector('.sidebar-menu .menu').classList.add('active');
+    }
+
+
+</script>

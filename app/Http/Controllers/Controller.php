@@ -13,7 +13,6 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function index(){
         $categories = Category::all();
-//        dd($categories);
         return view('index')->with('categories', $categories);
     }
 }

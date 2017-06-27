@@ -1,11 +1,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Customer
+        book
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Customer</li>
+        <li class="active">Book</li>
     </ol>
 </section>
 
@@ -15,56 +15,47 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Customer</h3>
+                    <h3 class="box-title">Book</h3>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="customergories" class="table table-bordered table-hover">
+                        <table id="bookgories" class="table table-bordered table-hover">
                             <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Status</th>
+                                <th>Date</th>
                                 <th>Number</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @if(! empty($customers))
+                            @if(! empty($books))
                                 <?php $i = 1;?>
-                                @foreach($customers as $customer)
+                                @foreach($books as $book)
                                     <tr>
                                         <td style="width: 50px;"><?php echo $i;?></td>
-                                        <td><?php echo $customer->name;?></td>
-                                        <td><?php echo $customer->status;?></td>
-                                        <td><?php echo $customer->number;?></td>
+                                        <td><?php echo $book->customer->name;?></td>
+                                        <td><?php echo $book->date;?></td>
+                                        <td><?php echo $book->number;?></td>
                                         <td style="width: 250px;">
-                                            @if($customer->status == 0)
-                                                <span class="action  bg-green btn-done" title="check reserve"
-                                                      customer_id="<?php echo $customer->id;?>"
-                                                      style="padding: 8px; margin: 5px; border-radius: 10px; cursor: pointer;"><i
-                                                            class="fa fa-check fa-lg"></i></span>
-                                            @endif
-                                            <span class=" action bg-yellow preview" data-toggle="modal"
-                                                  data-target="#preview" title="preview"
-                                                  style="padding: 8px; margin: 5px; border-radius: 10px; cursor: pointer"
-                                                  customerName="<?php echo $customer->name;?>"
-                                                  customerStatus="<?php echo $customer->status;?>"
-                                                  customerNumber="<?php echo $customer->number;?>"
-                                                  customerBirthday="<?php echo $customer->birthday;?>"
-                                                  customerDate="<?php echo $customer->created_at;?>"
-                                                  customerEmail="<?php echo $customer->email?>">
+                                            <span class=" action bg-yellow preview" data-toggle="modal" title="preview"
+                                                  data-target="#preview"
+                                                  style="padding: 8px; margin: 5px; border-radius: 10px; cursor: pointer;"
+                                                  bookName="<?php echo $book->customer->name;?>"
+                                                  bookNumber="<?php echo $book->number;?>"
+                                                  bookDate="<?php echo $book->date;?>"
+                                                  bookCreatedDate="<?php echo $book->created_at;?>">
                                                 <i class="fa fa-eye fa-lg"></i></span>
                                             <span class="action bg-blue edit" data-toggle="modal" title="edit"
-                                                  data-target="#edit" customer_id="<?php echo $customer->id;?>"
-                                                  customer_name="{{$customer->name}}"
-                                                  customer_email="{{$customer->email}}"
-                                                  customer_status="{{$customer->status}}"
-                                                  customer_birthday="{{$customer->birthday}}"
-                                                  customer_number="{{$customer->number}}"
-                                                  style="padding: 8px; margin: 5px; border-radius: 10px; cursor: pointer"><i
+                                                  data-target="#edit" book_id="<?php echo $book->id;?>"
+                                                  book_name="{{$book->customer->name}}"
+                                                  book_date="{{$book->date}}"
+                                                  book_number="{{$book->number}}"
+                                                  customer_id="{{$book->customer_id}}"
+                                                  style="padding: 8px; margin: 5px; border-radius: 10px; cursor: pointer;"><i
                                                         class="fa fa-pencil-square-o fa-lg"></i></span>
                                             <span class="action  bg-red btn-remove" title="delete"
-                                                  customer_id="<?php echo $customer->id;?>"
+                                                  book_id="<?php echo $book->id;?>"
                                                   style="padding: 8px; margin: 5px; border-radius: 10px; cursor: pointer;"><i
                                                         class="fa fa-trash fa-lg"></i></span>
                                         </td>
@@ -79,13 +70,12 @@
                 </div>
                 <!-- /.box -->
             </div>
-            <div class="col-xs-12" style="display: none">
-                <button class="btn btn-info add-customer" style="font-weight: bold" data-toggle="modal"
-                        data-target="#add"><i class="fa fa-plus-circle"
-                                              style="font-size: 20px; margin-right: 5px"></i>Add
-                    customer
-                </button>
-            </div>
+            {{--<div class="col-xs-12">--}}
+                {{--<button class="btn btn-info add-book" style="font-weight: bold" data-toggle="modal"--}}
+                        {{--data-target="#add"><i class="fa fa-plus-circle"--}}
+                                              {{--style="font-size: 20px; margin-right: 5px"></i>Add Book--}}
+                {{--</button>--}}
+            {{--</div>--}}
         </div>
         <!-- /.col -->
     </div>
@@ -100,33 +90,24 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Preview customer</h4>
+                <h4 class="modal-title">Preview Book</h4>
             </div>
             <div class="modal-body">
                 <div class="row col-xs-12">
                     <div class="col-xs-12">
                         <label>Name</label>
-                        <div class="customerName"></div>
+                        <div class="bookName"></div>
                         <hr/>
                     </div>
                     <div class="col-xs-12">
-                        <label>Email</label>
-                        <div class="customerEmail"></div>
+                        <label>Date</label>
+                        <div class="bookDate"></div>
                         <hr/>
                     </div>
                     <div class="col-xs-12">
-                        <label>Birthday</label>
-                        <div class="customerBirthday"></div>
+                        <label>Party umber</label>
+                        <div class="bookNumber"></div>
                         <hr/>
-                    </div>
-                    <div class="col-xs-12">
-                        <label>Status</label>
-                        <div class="customerStatus"></div>
-                        <hr/>
-                    </div>
-                    <div class="col-xs-12">
-                        <label>Created At</label>
-                        <div class="customerDate"></div>
                     </div>
                 </div>
                 <div class="clear" style="clear: both"></div>
@@ -140,10 +121,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" style="font-weight: bold">New customer</h4>
+                <h4 class="modal-title" style="font-weight: bold">New book</h4>
             </div>
             <div class="modal-body">
-                <form action="{{route('addCustomer')}}" method="POST">
+                <form action="{{route('addBook')}}" method="POST">
                     {{csrf_field()}}
                     <div class="row col-xs-12">
                         @if($errors->has('name'))
@@ -160,31 +141,28 @@
                                        value="{{old('name')}}">
                             </div>
                         @endif
-                        @if($errors->has('email'))
+                        @if($errors->has('date'))
                             <div class="col-xs-12 form-group has-error" style="margin: 15px 0px ">
                                 <label>Email</label>
-                                <input type="email" class="form-control" name="email" placeholder="Email"
-                                       required value="{{old('email')}}"/>
-                                <span class="help-block">{{$errors->first('email')}}</span>
+                                <input type="date" class="form-control" name="email" placeholder="Date"
+                                       required value="{{old('date')}}"/>
+                                <span class="help-block">{{$errors->first('date')}}</span>
                             </div>
                         @else
                             <div class="col-xs-12 form-group" style="margin: 15px 0px ">
                                 <label>Email</label>
-                                <input type="email" class="form-control" name="email" placeholder="Email"
-                                       required value="{{old('Email')}}"/>
+                                <input type="date" class="form-control" name="email" placeholder="Date"
+                                       required value="{{old('date')}}"/>
                             </div>
                         @endif
                         <div class="col-xs-12 form-group" style="margin: 15px 0px ">
-                            <label>Status</label>
-                            <select name="status">
-                                <option>0</option>
-                                <option>1</option>
-                            </select>
+                            <label>Number</label>
+                          <input type="number" name="number" placeholder="Party Number">
                         </div>
                         @if($errors->has('number'))
                             <div class="col-xs-12 form-group has-error" style="margin: 15px 0px ">
                                 <label>Party Number</label>
-                                <input type="text" class="form-control" name="number" placeholder="Party Numerber"
+                                <input type="text" class="form-control" name="number" placeholder="Party Numerber
                                        required value="{{old('number')}}"/>
                                 <span class="help-block">{{$errors->first('number')}}</span>
                             </div>
@@ -211,33 +189,22 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" style="font-weight: bold">Customer</h4>
+                <h4 class="modal-title" style="font-weight: bold">Edit Book</h4>
             </div>
             <div class="modal-body">
                 <div class="row col-xs-12">
-                    <form action="{{url('editCustomer')}}" method="POST" class="form-edit">
+                    <form action="{{route('editBook')}}" method="POST" class="form-edit">
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
-                        <input type="hidden" name="customer-id"/>
+                        <input type="hidden" name="book-id"/>
+                        <input type="hidden" name="customer_id">
                         <div class="col-xs-12 form-group">
                             <label class="col-xs-2">Name</label>
                             <input name="name" class="form-contrl" placeholder="Name" required/>
                         </div>
                         <div class="col-xs-12 form-group">
-                            <label class="col-xs-2">Email</label>
-                            <input name="email" class="form-controll"
-                                   placeholder="Email" required/>
-                        </div>
-                        <div class="col-xs-12 form-group">
-                            <label class="col-xs-2">Birthday</label>
-                            <input type="date" name="birthday" class="form-controll"
-                                   placeholder="Birthday"/>
-                        </div>
-                        <div class="col-xs-12 form-group">
-                            <label class="col-xs-2">Status</label>
-                            <select name="status">
-                                <option>0</option>
-                                <option>1</option>
-                            </select>
+                            <label class="col-xs-2">Date</label>
+                            <input type="date" name="date" class="form-controll"
+                                   placeholder="date"/>
                         </div>
                         <div class="col-xs-12 form-group">
                             <label class="col-xs-2">Number</label>
@@ -265,8 +232,12 @@
     <script src="{{url('public/assets')}}/plugins/datatables/dataTables.bootstrap.min.js"></script>
     <script src="{{url('public/assets')}}/dist/js/sweetalert.min.js"></script>
     <script>
+        @if(session()->has('edit'))
+            console.log(1);
+            swal("Edit success!", "Edit Success!", "success")
+        @endif
         $(function () {
-            $('#customergories').DataTable({
+            $('#bookgories').DataTable({
                 "paging": true,
                 "lengthChange": false,
                 "searching": true,
@@ -276,14 +247,14 @@
             });
         });
         $(document).ready(function () {
-            @if ($errors->any())
-                  $('#add').modal('show');
-            @endif
+            {{--@if ($errors->any())--}}
+                  {{--$('#add').modal('show');--}}
+            {{--@endif--}}
             $('.btn-remove').click(function () {
-                var id = $(this).attr('customer_id');
+                var id = $(this).attr('book_id');
                 swal({
                             title: "Are you sure?",
-                            text: "You will not be able to recover this customer!",
+                            text: "You will not be able to recover this book!",
                             type: "warning",
                             showCancelButton: true,
                             confirmButtonColor: "#DD6B55",
@@ -294,57 +265,48 @@
                         },
                         function (isConfirm) {
                             if (isConfirm) {
-                                console.log(id);
-                                removecustomer(id);
+                                removebook(id);
                             } else {
-                                swal("Cancelled", "customer is safe :)", "error");
+                                swal("Cancelled", "book is safe :)", "error");
                             }
                         });
             });
             $('.preview').click(function () {
-                var customerName = $(this).attr('customerName');
-                var customerEmail = $(this).attr('customerEmail');
-                var customerDate = $(this).attr('customerDate');
-                var customerBirthday = $(this).attr('customerBirthday');
-                var customerStatus = $(this).attr('customerStatus');
-                var customerNumber = $(this).attr('customerNumber');
-                console.log(customerBirthday);
-                $('#preview').find('.customerName').text(customerName);
-                $('#preview').find('.customerEmail').text(customerEmail);
-                $('#preview').find('.customerDate').text(customerDate);
-                $('#preview').find('.customerBirthday').text(customerBirthday);
-                $('#preview').find('.customerStatus').text(customerStatus);
-                $('#preview').find('.customerNumber').text(customerNumber);
-
+                var bookName = $(this).attr('bookName');
+                var bookDate = $(this).attr('bookDate');
+                var bookNumber = $(this).attr('bookNumber');
+                var bookNumber = $(this).attr('bookNumber');
+                $('#preview').find('.bookName').text(bookName);
+                $('#preview').find('.bookDate').text(bookDate);
+                $('#preview').find('.bookNumber').text(bookNumber);
             });
 
             $('.edit').click(function () {
-                var customerId = $(this).attr('customer_id');
-                var name = $(this).attr('customer_name');
-                var email = $(this).attr('customer_email');
-                var status = $(this).attr('customer_status');
-                var number = $(this).attr('customer_number');
-                var birthday = $(this).attr('customer_birthday');
+                var bookId = $(this).attr('book_id');
+                var name = $(this).attr('book_name');
+                var number = $(this).attr('book_number');
+                var date = $(this).attr('book_date');
+                var customer_id = $(this).attr('customer_id');
 
-                $('.form-edit').find('input[name=customer-id]').attr('value', customerId);
+
+                $('.form-edit').find('input[name=book-id]').attr('value', bookId);
                 $('.form-edit').find('input[name=name]').attr('value', name);
-                $('.form-edit').find('input[name=email]').attr('value', email);
-                $('.form-edit').find('input[name=birthday]').attr('value', birthday);
-                $('.form-edit').find('select[name=status]').val(status);
+                $('.form-edit').find('input[name=date]').attr('value', date);
                 $('.form-edit').find('input[name=number]').attr('value', number);
+                $('.form-edit').find('input[name=customer_id]').attr('value', customer_id);
             });
 
             $('.btn-done').click(function () {
-                id = $(this).attr('customer_id');
+                id = $(this).attr('book_id');
                 reserver(id);
             });
         });
 
-        function removecustomer(id) {
+        function removebook(id) {
             if (id != null && id !== '') {
                 $.ajax({
                     type: "POST",
-                    url: "{{url('removeCustomer ')}}",
+                    url: "{{url('admin/book/remove')}}",
                     dataType: 'JSON',
                     headers: {'X-CSRF-TOKEN': "{{csrf_token()}}"},
                     data: {
@@ -352,14 +314,14 @@
                     },
                     success: function (data) {
                         if (data.status == 'Success') {
-                            swal("Deleted!", "The customer  has been deleted.", "success");
+                            swal("Deleted!", "The book  has been deleted.", "success");
                             location.reload(true);
                         } else {
-                            swal("Fail", "The customer  has some error", "error");
+                            swal("Fail", "The book  has some error", "error");
                         }
                     },
                     error: function () {
-                        swal("Fail", "The customer  has some error", "error");
+                        swal("Fail", "The book  has some error", "error");
                     }
                 });
             }
@@ -368,22 +330,25 @@
             if (id != null && id !== '') {
                 $.ajax({
                     type: "POST",
-                    url: "{{url('reserverCustomer ')}}",
+                    url: "{{url('reserverbook ')}}",
                     dataType: 'JSON',
                     headers: {'X-CSRF-TOKEN': "{{csrf_token()}}"},
                     data: {
                         id: id
                     },
                     success: function (data) {
-                        if(data.status == 'Success'){
+                        if (data.status == 'Success') {
                             console.log("Fail");
                         }
                         location.reload(true);
                     },
                     error: function () {
-                        swal("Fail", "The customer  has some error", "error");
+                        swal("Fail", "The book  has some error", "error");
                     }
                 });
             }
         }
+        @if(! empty(session()->has('bookStatus')))
+        swal("Success!", "Your register is successfully", "success");
+        @endif
     </script>

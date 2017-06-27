@@ -285,13 +285,15 @@
                             <!-- <input class="form-control res-date" placeholder="date *"> -->
                             <input type="text" name="date" class="form-control" id="datepicker" placeholder="date *"
                                    required>
+                            @if($errors->has('date'))
+                                <div class="alert alert-danger">
+                                    {{$errors->first('date')}}
+                                </div>
+                            @endif
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <label for="party">Party Number</label>
-                            <select name="number" class="party form-control">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                            </select>
+                            <input type="number" name="number" class="party form-control"/>
                         </div>
                         <div class="col-md-12">
                             <button class="btn btn-warning res-btn">Book now!</button>
@@ -362,7 +364,7 @@
 <script type="text/javascript">
     var dateToday = new Date();
     $("#datepicker").datepicker({
-        maxDate: dateToday,
+        minDate: dateToday,
         dateFormat: 'yy-mm-dd'
     });
     @if(! empty(session()->has('bookStatus')))

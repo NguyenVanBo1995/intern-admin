@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function add(Request $request)
     {
         $name = $request->input('name');
