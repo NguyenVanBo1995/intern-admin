@@ -271,7 +271,7 @@
                 "autoWidth": false
             });
         });
-        $(document).ready(function () {
+//        $(document).ready(function () {
             @if ($errors->any())
                   $('#add').modal('show');
             @endif
@@ -316,7 +316,6 @@
                 var description = $(this).attr('item_description');
                 var price = $(this).attr('item_price');
                 var category = $(this).attr('category_name');
-                console.log(category);
 
                 $('.form-edit').find('input[name=item-id]').attr('value', itemId);
                 $('.form-edit').find('input[name=name]').attr('value', name);
@@ -324,7 +323,7 @@
                 $('.form-edit').find('input[name=price]').val(price);
                 $('.form-edit').find('select[name=category]').val(category);
             });
-        });
+//        });
 
         function removeItem(id) {
             if (id != null && id !== '') {

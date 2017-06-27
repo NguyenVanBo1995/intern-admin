@@ -246,7 +246,6 @@
                 "autoWidth": false
             });
         });
-        $(document).ready(function () {
             {{--@if ($errors->any())--}}
                   {{--$('#add').modal('show');--}}
             {{--@endif--}}
@@ -300,7 +299,6 @@
                 id = $(this).attr('book_id');
                 reserver(id);
             });
-        });
 
         function removebook(id) {
             if (id != null && id !== '') {

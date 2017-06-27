@@ -275,71 +275,68 @@
                 "autoWidth": false
             });
         });
-        $(document).ready(function () {
-            @if ($errors->any())
-                  $('#add').modal('show');
-            @endif
-            $('.btn-remove').click(function () {
-                var id = $(this).attr('customer_id');
-                swal({
-                            title: "Are you sure?",
-                            text: "You will not be able to recover this customer!",
-                            type: "warning",
-                            showCancelButton: true,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Yes, delete it!",
-                            cancelButtonText: "No, cancel plx!",
-                            closeOnConfirm: false,
-                            closeOnCancel: false
-                        },
-                        function (isConfirm) {
-                            if (isConfirm) {
-                                console.log(id);
-                                removecustomer(id);
-                            } else {
-                                swal("Cancelled", "customer is safe :)", "error");
-                            }
-                        });
-            });
-            $('.preview').click(function () {
-                var customerName = $(this).attr('customerName');
-                var customerEmail = $(this).attr('customerEmail');
-                var customerDate = $(this).attr('customerDate');
-                var customerBirthday = $(this).attr('customerBirthday');
-                var customerStatus = $(this).attr('customerStatus');
-                var customerNumber = $(this).attr('customerNumber');
-                console.log(customerBirthday);
-                $('#preview').find('.customerName').text(customerName);
-                $('#preview').find('.customerEmail').text(customerEmail);
-                $('#preview').find('.customerDate').text(customerDate);
-                $('#preview').find('.customerBirthday').text(customerBirthday);
-                $('#preview').find('.customerStatus').text(customerStatus);
-                $('#preview').find('.customerNumber').text(customerNumber);
+        @if ($errors->any())
+              $('#add').modal('show');
+        @endif
+        $('.btn-remove').click(function () {
+            var id = $(this).attr('customer_id');
+            swal({
+                        title: "Are you sure?",
+                        text: "You will not be able to recover this customer!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it!",
+                        cancelButtonText: "No, cancel plx!",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            console.log(id);
+                            removecustomer(id);
+                        } else {
+                            swal("Cancelled", "customer is safe :)", "error");
+                        }
+                    });
+        });
+        $('.preview').click(function () {
+            var customerName = $(this).attr('customerName');
+            var customerEmail = $(this).attr('customerEmail');
+            var customerDate = $(this).attr('customerDate');
+            var customerBirthday = $(this).attr('customerBirthday');
+            var customerStatus = $(this).attr('customerStatus');
+            var customerNumber = $(this).attr('customerNumber');
+            console.log(customerBirthday);
+            $('#preview').find('.customerName').text(customerName);
+            $('#preview').find('.customerEmail').text(customerEmail);
+            $('#preview').find('.customerDate').text(customerDate);
+            $('#preview').find('.customerBirthday').text(customerBirthday);
+            $('#preview').find('.customerStatus').text(customerStatus);
+            $('#preview').find('.customerNumber').text(customerNumber);
 
-            });
-
-            $('.edit').click(function () {
-                var customerId = $(this).attr('customer_id');
-                var name = $(this).attr('customer_name');
-                var email = $(this).attr('customer_email');
-                var status = $(this).attr('customer_status');
-                var number = $(this).attr('customer_number');
-                var birthday = $(this).attr('customer_birthday');
-
-                $('.form-edit').find('input[name=customer-id]').attr('value', customerId);
-                $('.form-edit').find('input[name=name]').attr('value', name);
-                $('.form-edit').find('input[name=email]').attr('value', email);
-                $('.form-edit').find('input[name=birthday]').attr('value', birthday);
-                $('.form-edit').find('select[name=status]').val(status);
-                $('.form-edit').find('input[name=number]').attr('value', number);
-            });
-
-            $('.btn-done').click(function () {
-                id = $(this).attr('customer_id');
-                reserver(id);
-            });
         });
 
+        $('.edit').click(function () {
+            var customerId = $(this).attr('customer_id');
+            var name = $(this).attr('customer_name');
+            var email = $(this).attr('customer_email');
+            var status = $(this).attr('customer_status');
+            var number = $(this).attr('customer_number');
+            var birthday = $(this).attr('customer_birthday');
+
+            $('.form-edit').find('input[name=customer-id]').attr('value', customerId);
+            $('.form-edit').find('input[name=name]').attr('value', name);
+            $('.form-edit').find('input[name=email]').attr('value', email);
+            $('.form-edit').find('input[name=birthday]').attr('value', birthday);
+            $('.form-edit').find('select[name=status]').val(status);
+            $('.form-edit').find('input[name=number]').attr('value', number);
+        });
+
+        $('.btn-done').click(function () {
+            id = $(this).attr('customer_id');
+            reserver(id);
+        });
         function removecustomer(id) {
             if (id != null && id !== '') {
                 $.ajax({
@@ -375,7 +372,7 @@
                         id: id
                     },
                     success: function (data) {
-                        if(data.status == 'Success'){
+                        if (data.status == 'Success') {
                             console.log("Fail");
                         }
                         location.reload(true);
