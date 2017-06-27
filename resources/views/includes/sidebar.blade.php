@@ -27,25 +27,25 @@
             <li class="header">MAIN NAVIGATION</li>
             <li class="menu active" file = "category" >
                 <a href="{{route('admin')}}">
-                    <i class="fa fa-list"></i> <span>Categories</span>
+                    <i class="fa fa-list"></i> <span>Category</span>
                 </a>
             </li>
             <li class="item">
                     <a href="{{route('admin/item')}}">
-                    <i class="fa fa-list-ul"></i> <span>Items</span>
+                    <i class="fa fa-list-ul"></i> <span>Item</span>
                 </a>
             </li>
             <li class="reservation">
                 <a href="{{route('admin/reservation')}}">
                     <i class="fa fa-users"></i>
-                    <span>Customers</span>
+                    <span>Customer</span>
                     </span>
                 </a>
             </li>
             <li class="book">
                 <a href="{{route('adminBook')}}">
                     <i class="fa fa-bookmark"></i>
-                    <span>BookTables</span>
+                    <span>Book</span>
                     </span>
                 </a>
             </li>
