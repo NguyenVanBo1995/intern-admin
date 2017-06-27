@@ -21,13 +21,14 @@ class BookController extends Controller
     public function editBook(Request $request)
     {
         $id = $request->input('book-id');
-        $book = Book::find($id);
-        $book->customer_id = $request->input('');
-        $book->customer_id = $request->input('customer_id');
-        $book->date = $request->input('date');
-        $book->number = $request->input('number');
-        $book->save();
-        return back()->with('edit', 'success');
+        $input = $request->only(['customer_id', 'date', 'number']);
+        $update = Book::find($id)->update($input);
+        if($update){
+            return back()->with('update', 'success');
+        }else{
+            return back()->with('update', 'fails');
+        }
+
     }
 
     public function removeBook(Request $request)

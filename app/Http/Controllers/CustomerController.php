@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Book;
 use App\Model\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Validator;
 
 class CustomerController extends Controller
@@ -13,6 +14,7 @@ class CustomerController extends Controller
     {
 //        $this->middleware('auth');
     }
+
     public function create(Request $request)
     {
         $name = $request->input('name');
@@ -25,7 +27,7 @@ class CustomerController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email',
             'number' => 'required|numeric',
-            'date' => 'required|after:'.$current_date,
+            'date' => 'required|after:' . $current_date,
         );
         $message = array(
             'required' => 'The :attribute is required',
@@ -50,7 +52,7 @@ class CustomerController extends Controller
         $book = new Book();
         $book->customer_id = $customer->id;
         $book->number = $number;
-        $book->date  = $date;
+        $book->date = $date;
         $book->save();
 
         return redirect()->route('adminBook')->with('bookStatus', 'success');
@@ -64,16 +66,24 @@ class CustomerController extends Controller
         $birthday = $request->input('birthday');
         $status = $request->input('status');
         $number = $request->input('number');
-        if (!empty($name) && !empty($id)) {
-            $customer = Customer::find($id);
-            $customer->name = $name;
-            $customer->email = $email;
-            $customer->birthday = $birthday;
-            $customer->status = $status;
-            $customer->number = $number;
-            $customer->save();
+
+        $rule = array(
+            'name' => 'required',
+            'email' => 'required|email',
+            'number' => 'required',
+        );
+        $validator = Validator::make($request->all(), $rule);
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput();
+        }else{
+            $input = $request->only(['name', 'email', 'birthday', 'status', 'number']);
+            $update = Customer::find($id)->update($input);
+            if ($update) {
+              return back()->with('update','success');
+            } else {
+                return back()->with('update','fail');
+            }
         }
-        return back()->with('update', 'true');
     }
 
     public function remove(Request $request)

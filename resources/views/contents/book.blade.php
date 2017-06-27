@@ -232,10 +232,6 @@
     <script src="{{url('public/assets')}}/plugins/datatables/dataTables.bootstrap.min.js"></script>
     <script src="{{url('public/assets')}}/dist/js/sweetalert.min.js"></script>
     <script>
-        @if(session()->has('edit'))
-            console.log(1);
-            swal("Edit success!", "Edit Success!", "success")
-        @endif
         $(function () {
             $('#bookgories').DataTable({
                 "paging": true,
@@ -346,7 +342,14 @@
                 });
             }
         }
-        @if(! empty(session()->has('bookStatus')))
+        @if(session()->has('bookStatus'))
         swal("Success!", "Your register is successfully", "success");
+        @endif
+        @if(session()->has('update'))
+            @if(session('update') == 'success')
+                swal("Edit success!", "Edit Success!", "success");
+            @else
+                swal("Error!", "Edit has some errors!", "warning");
+            @endif
         @endif
     </script>

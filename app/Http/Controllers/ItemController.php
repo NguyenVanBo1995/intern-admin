@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Category;
 use App\Model\Item;
 use Illuminate\Http\Request;
+use Validator;
 
 class ItemController extends Controller
 {
@@ -12,6 +13,7 @@ class ItemController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function add(Request $request)
     {
         $name = $request->input('name');
@@ -58,7 +60,16 @@ class ItemController extends Controller
         $cateName = $request->input('category');
         $price = $request->input('price');
 
-        if (!empty($name) && !empty($cateName) && !empty($price)) {
+        $rule = array(
+            'name' => 'required',
+            'cateName' => 'category',
+            'price' => 'required|numeric',
+        );
+
+        $validator = Validator::make($request->all(), $rule);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        } else {
             $category = Category::where('name', $cateName)->get()[0];
             if (!empty($category)) {
                 $update = Item::where('id', $id)
@@ -69,10 +80,9 @@ class ItemController extends Controller
                         'category_id' => $category->id
                     ]);
                 if ($update) {
-                    return back()->with('update', 'true');
+                    return back()->with('update', 'success');
                 }
             }
         }
-        return back();
     }
 }

@@ -383,7 +383,11 @@
                 });
             }
         }
-        @if(! empty(session()->has('update')))
-           swal("Success!", "Your Edit is successfully", "success");
+        @if(session()->has('update'))
+            @if(session('update'))
+                swal("Success!", "Your Edit is successfully", "success");
+            @else
+                 swal("Error!", "Your Edit has some errors", "warning");
+            @endif
         @endif
     </script>

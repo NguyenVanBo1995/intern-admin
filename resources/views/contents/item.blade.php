@@ -50,12 +50,13 @@
                                                         class="fa fa-eye fa-lg"></i></span>
                                             <span class="action bg-blue edit" data-toggle="modal" title="edit"
                                                   data-target="#edit" item_id="<?php echo $item->id;?>"
-                                                  item_name="{{$item->name}}" item_price = "{{$item->price}}"
-                                                  category_name = "{{$item->category->name}}"
+                                                  item_name="{{$item->name}}" item_price="{{$item->price}}"
+                                                  category_name="{{$item->category->name}}"
                                                   item_description="{{$item->description}}"
                                                   style="padding: 8px; margin: 5px; border-radius: 10px; cursor:pointer "><i
                                                         class="fa fa-pencil-square-o fa-lg"></i></span>
-                                            <span class="action  bg-red btn-remove" title="delete" item_id="<?php echo $item->id;?>"
+                                            <span class="action  bg-red btn-remove" title="delete"
+                                                  item_id="<?php echo $item->id;?>"
                                                   style="padding: 8px; margin: 5px; border-radius: 10px; cursor:pointer"><i
                                                         class="fa fa-trash fa-lg"></i></span>
                                         </td>
@@ -231,13 +232,13 @@
                         </div>
                         <div class="col-xs-12">
                             <label class="col-xs-2">Category</label>
-                                <select name="category">
-                                    @if(! empty($categories))
-                                        @foreach($categories as $category)
-                                            <option cate_id="<?php echo $category->id;?>"><?php echo $category->name?></option>
-                                        @endforeach
-                                    @endif
-                                </select>
+                            <select name="category">
+                                @if(! empty($categories))
+                                    @foreach($categories as $category)
+                                        <option cate_id="<?php echo $category->id;?>"><?php echo $category->name?></option>
+                                    @endforeach
+                                @endif
+                            </select>
                         </div>
                         <div class="col-xs-12">
                             <input class="btn btn-info" type="submit" value="Save"/>
@@ -271,59 +272,59 @@
                 "autoWidth": false
             });
         });
-//        $(document).ready(function () {
-            @if ($errors->any())
-                  $('#add').modal('show');
-            @endif
-            $('.btn-remove').click(function () {
-                var id = $(this).attr('item_id');
-                swal({
-                            title: "Are you sure?",
-                            text: "You will not be able to recover this item!",
-                            type: "warning",
-                            showCancelButton: true,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Yes, delete it!",
-                            cancelButtonText: "No, cancel plx!",
-                            closeOnConfirm: false,
-                            closeOnCancel: false
-                        },
-                        function (isConfirm) {
-                            if (isConfirm) {
-                                removeItem(id);
-                            } else {
-                                swal("Cancelled", "item is safe :)", "error");
-                            }
-                        });
-            });
-            $('.preview').click(function () {
-                var itemName = $(this).attr('itemName');
-                var itemDescription = $(this).attr('itemDescription');
-                var itemDate = $(this).attr('itemDate');
-                var itemPrice = $(this).attr('itemPrice');
-                var itemCategory = $(this).attr('itemCategory');
+        //        $(document).ready(function () {
+        @if ($errors->any())
+              $('#add').modal('show');
+        @endif
+        $('.btn-remove').click(function () {
+            var id = $(this).attr('item_id');
+            swal({
+                        title: "Are you sure?",
+                        text: "You will not be able to recover this item!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it!",
+                        cancelButtonText: "No, cancel plx!",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            removeItem(id);
+                        } else {
+                            swal("Cancelled", "item is safe :)", "error");
+                        }
+                    });
+        });
+        $('.preview').click(function () {
+            var itemName = $(this).attr('itemName');
+            var itemDescription = $(this).attr('itemDescription');
+            var itemDate = $(this).attr('itemDate');
+            var itemPrice = $(this).attr('itemPrice');
+            var itemCategory = $(this).attr('itemCategory');
 
-                $('#preview').find('.itemName').text(itemName);
-                $('#preview').find('.itemDesciption').text(itemDescription);
-                $('#preview').find('.itemDate').text(itemDate);
-                $('#preview').find('.itemPrice').text(itemPrice);
-                $('#preview').find('.itemCategory').text(itemCategory);
-            });
+            $('#preview').find('.itemName').text(itemName);
+            $('#preview').find('.itemDesciption').text(itemDescription);
+            $('#preview').find('.itemDate').text(itemDate);
+            $('#preview').find('.itemPrice').text(itemPrice);
+            $('#preview').find('.itemCategory').text(itemCategory);
+        });
 
-            $('.edit').click(function () {
-                var itemId = $(this).attr('item_id');
-                var name = $(this).attr('item_name');
-                var description = $(this).attr('item_description');
-                var price = $(this).attr('item_price');
-                var category = $(this).attr('category_name');
+        $('.edit').click(function () {
+            var itemId = $(this).attr('item_id');
+            var name = $(this).attr('item_name');
+            var description = $(this).attr('item_description');
+            var price = $(this).attr('item_price');
+            var category = $(this).attr('category_name');
 
-                $('.form-edit').find('input[name=item-id]').attr('value', itemId);
-                $('.form-edit').find('input[name=name]').attr('value', name);
-                $('.form-edit').find('textarea[name=description]').val(description);
-                $('.form-edit').find('input[name=price]').val(price);
-                $('.form-edit').find('select[name=category]').val(category);
-            });
-//        });
+            $('.form-edit').find('input[name=item-id]').attr('value', itemId);
+            $('.form-edit').find('input[name=name]').attr('value', name);
+            $('.form-edit').find('textarea[name=description]').val(description);
+            $('.form-edit').find('input[name=price]').val(price);
+            $('.form-edit').find('select[name=category]').val(category);
+        });
+        //        });
 
         function removeItem(id) {
             if (id != null && id !== '') {
@@ -349,7 +350,7 @@
                 });
             }
         }
-        @if(! empty(session()->has('update')))
+        @if(session()->has('update'))
             swal("Success!", "Your Edit is successfully", "success");
         @endif
     </script>

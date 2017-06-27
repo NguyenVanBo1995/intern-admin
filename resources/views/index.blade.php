@@ -264,7 +264,7 @@
                     <div class="row">
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <label for="name">Name</label>
-                            <input type="text" name="name" class="form-control" placeholder="your name *" required>
+                            <input type="text" name="name" value="{{old('name')}}" class="form-control" placeholder="your name *" required>
                             @if($errors->has('name'))
                                 <div class="alert alert-danger">
                                     {{$errors->first('name')}}
@@ -273,7 +273,7 @@
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="your email *" required>
+                            <input type="email" name="email" value="{{old('email')}}" class="form-control" placeholder="your email *" required>
                             @if($errors->has('email'))
                                 <div class="alert alert-danger">
                                     {{$errors->first('email')}}
@@ -284,7 +284,7 @@
                             <label for="date">Date</label>
                             <!-- <input class="form-control res-date" placeholder="date *"> -->
                             <input type="text" name="date" class="form-control" id="datepicker" placeholder="date *"
-                                   required>
+                                   required value="{{old('date')}}">
                             @if($errors->has('date'))
                                 <div class="alert alert-danger">
                                     {{$errors->first('date')}}
@@ -293,7 +293,13 @@
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <label for="party">Party Number</label>
-                            <input type="number" name="number" class="party form-control"/>
+                            <select class="form-control"  name="number" val="{{old('number')}}">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="4">3</option>
+                                <option value="5">4</option>
+                                <option value="6">5</option>
+                            </select>
                         </div>
                         <div class="col-md-12">
                             <button class="btn btn-warning res-btn">Book now!</button>
