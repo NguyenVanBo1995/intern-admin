@@ -356,7 +356,7 @@
                         }
                     },
                     error: function () {
-                        swal("Fail", "The customer  has some error", "error");
+                        swal("Fail", "không thể xóa, cần xóa đơn đặt trong book table trước ", "error");
                     }
                 });
             }
