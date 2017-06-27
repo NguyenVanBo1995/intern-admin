@@ -78,7 +78,7 @@ class CategoryController extends Controller
                 ->where('id', $cateId)
                 ->update(['name' => $name, 'description' => $description]);
             if($update){
-                return back()->with(array(['update'=>true]));
+                return back()->with('update', 'true');
             }
         }
         return back();

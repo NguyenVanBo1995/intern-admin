@@ -73,7 +73,7 @@ class CustomerController extends Controller
             $customer->number = $number;
             $customer->save();
         }
-        return back();
+        return back()->with('update', 'true');
     }
 
     public function remove(Request $request)

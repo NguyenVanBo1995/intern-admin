@@ -69,7 +69,7 @@ class ItemController extends Controller
                         'category_id' => $category->id
                     ]);
                 if ($update) {
-                    return back()->with(array(['update' => true]));
+                    return back()->with('update', 'true');
                 }
             }
         }

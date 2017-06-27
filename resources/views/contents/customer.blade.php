@@ -383,4 +383,7 @@
                 });
             }
         }
+        @if(! empty(session()->has('update')))
+           swal("Success!", "Your Edit is successfully", "success");
+        @endif
     </script>
